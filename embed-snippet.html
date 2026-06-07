@@ -1,0 +1,104 @@
+<!--
+  ===============================================================
+  INSTEP-WFU Study Abroad Advisor — Embed Snippet
+  ===============================================================
+
+  Two ways to embed the advisor on instep-programs.org pages.
+  Choose ONE option below.
+
+  Before either option works:
+    1. Deploy `instep-advisor.html` somewhere reachable
+       (e.g. https://chat.instep-programs.org/instep-advisor.html
+        or  https://instep-programs.org/advisor/instep-advisor.html)
+    2. Deploy the backend proxy (server-proxy.js) somewhere reachable
+       (e.g. https://api.instep-programs.org)
+    3. Inside instep-advisor.html, the script reads
+       `window.INSTEP_API_ENDPOINT`. You either set it on the host page
+       (see Option B) or edit the default `apiEndpoint` in
+       instep-advisor.html before deploying.
+  -->
+
+
+<!-- ===============================================================
+     OPTION A — IFRAME EMBED (easiest, fully isolated styling)
+     Paste anywhere in an INSTEP page where you want the chat to appear.
+     =============================================================== -->
+
+<div style="max-width: 480px; margin: 24px auto;">
+  <iframe
+    src="https://YOUR-DOMAIN/instep-advisor.html"
+    title="INSTEP-WFU Study Abroad Advisor"
+    style="width: 100%; height: 640px; border: 0; border-radius: 14px;
+           box-shadow: 0 8px 30px rgba(0,0,0,0.08);"
+    loading="lazy"
+    allow="clipboard-write">
+  </iframe>
+</div>
+
+
+<!-- ===============================================================
+     OPTION B — FLOATING CHAT BUBBLE (bottom-right, opens on click)
+     Drop this near the bottom of your <body> tag, on every page you
+     want the advisor available.
+     =============================================================== -->
+
+<!-- Tell the widget where the backend lives (optional override) -->
+<script>
+  window.INSTEP_API_ENDPOINT = "https://YOUR-API-DOMAIN/api/chat";
+</script>
+
+<style>
+  #instep-launcher {
+    position: fixed; right: 22px; bottom: 22px;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: #9E1B32; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    cursor: pointer; z-index: 9998;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 24px; border: none;
+  }
+  #instep-launcher:hover { background: #7A1426; }
+  #instep-launcher-label {
+    position: absolute; right: 70px; top: 50%; transform: translateY(-50%);
+    background: #fff; color: #1f2328; padding: 8px 12px;
+    border-radius: 8px; font-size: 13px; white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  #instep-launcher:hover #instep-launcher-label { opacity: 1; }
+
+  #instep-frame-wrap {
+    position: fixed; right: 22px; bottom: 96px;
+    width: 480px; max-width: calc(100vw - 44px);
+    height: 640px; max-height: calc(100vh - 120px);
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.22);
+    z-index: 9999; display: none; background: #fff;
+  }
+  #instep-frame-wrap.open { display: block; }
+  #instep-frame-wrap iframe { width: 100%; height: 100%; border: 0; }
+</style>
+
+<button id="instep-launcher" aria-label="Open INSTEP advisor chat">
+  💬
+  <span id="instep-launcher-label">Ask the INSTEP advisor</span>
+</button>
+
+<div id="instep-frame-wrap" role="dialog" aria-label="INSTEP-WFU Study Abroad Advisor">
+  <iframe
+    src="https://YOUR-DOMAIN/instep-advisor.html"
+    title="INSTEP-WFU Study Abroad Advisor"
+    loading="lazy">
+  </iframe>
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById("instep-launcher");
+    var wrap = document.getElementById("instep-frame-wrap");
+    btn.addEventListener("click", function () {
+      wrap.classList.toggle("open");
+    });
+  })();
+</script>

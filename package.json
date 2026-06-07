@@ -1,0 +1,19 @@
+{
+  "name": "instep-advisor",
+  "version": "1.0.0",
+  "description": "INSTEP-WFU Study Abroad Advisor — embeddable chat widget + backend proxy",
+  "main": "server-proxy.js",
+  "scripts": {
+    "start": "node server-proxy.js",
+    "dev": "node server-proxy.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
