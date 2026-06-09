@@ -291,7 +291,7 @@
         history: history.slice(-CONFIG.maxHistoryTurns * 2),
       };
 
-      const res = await fetch(CONFIG.apiEndpoint, {
+      const res = await fetch(CONFIG.apiEndpoint = "https://openrouter-proxy.seaworth-steve.workers.dev";, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
